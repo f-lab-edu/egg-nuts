@@ -1,4 +1,4 @@
-package me.usermanager.infrastructure;
+package me.usermanagement.infrastructure;
 
 import org.springframework.boot.test.context.SpringBootTest;
 

@@ -1,10 +1,13 @@
 server:
   address: localhost
   port: 8080
+  shutdown: graceful
 loggin:
   level:
     root: true
 spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: 1Q2w3e4r@@
@@ -19,7 +22,6 @@ spring:
       hibernate:
         ddl-auto: none
         format_sql: true
-        naming:
-          physical-strategy: com.halfjang.food.mapapi.common.config.PhysicalNamingStrategyStandardImpl
+
 
 

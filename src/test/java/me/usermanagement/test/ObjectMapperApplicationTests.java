@@ -1,4 +1,4 @@
-package me.usermanager.test;
+package me.usermanagement.test;
 
 
 import org.junit.Test;
