@@ -10,9 +10,9 @@ import java.util.Arrays;
 @Getter
 public enum NormalCodeDetailEnum {
 
-    JOIN_OK(200, NormalMessage.JOIN_OK,"회원 가입이 성공했습니다!"),
-    UNKNOWN(200, NormalMessage.UNKNOWN,""),
-    LEAVE_OK(200, NormalMessage.LEAVE_OK,"회원 탈퇴처리가 완료됬습니다.");
+    JOIN_OK(200, NormalMessage.JOIN_OK, "회원 가입이 성공했습니다!"),
+    UNKNOWN(200, NormalMessage.UNKNOWN, ""),
+    STATUS_CHANGE_OK(200, NormalMessage.STATUS_CHANGE_OK, "회원 상태 변경에 성공했습니다.");
 
     private final int statusCode;
     private final NormalMessage normalMessage;
@@ -20,13 +20,13 @@ public enum NormalCodeDetailEnum {
 
     public static NormalCodeDetailEnum getResponse(NormalMessage errorMessage) {
         return Arrays.stream(values())
-                .filter(e->e.normalMessage.equals(errorMessage))
+                .filter(e -> e.normalMessage.equals(errorMessage))
                 .findAny().orElse(UNKNOWN);
     }
 
-    public static String getResponseText(NormalMessage errorMessage){
+    public static String getResponseText(NormalMessage errorMessage) {
         return Arrays.stream(values())
-                .filter(e->e.normalMessage.equals(errorMessage))
+                .filter(e -> e.normalMessage.equals(errorMessage))
                 .findAny().orElse(UNKNOWN).getResponseText();
     }
 }

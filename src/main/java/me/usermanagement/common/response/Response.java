@@ -15,34 +15,39 @@ public class Response implements Serializable {
     private Object result;
     private String responseText;
 
-    private Response(ResponseBuilder errorResponseBuilder){
+    private Response(ResponseBuilder errorResponseBuilder) {
         this.statusCode = errorResponseBuilder.statusCode;
         this.message = errorResponseBuilder.message;
         this.responseText = errorResponseBuilder.responseText;
         this.result = errorResponseBuilder.result;
     }
 
-    public static class  ResponseBuilder implements Builder<Response>{
+    public static class ResponseBuilder implements Builder<Response> {
         private int statusCode;
         private MessageCommon message;
-        private Object result=new Object();
+        private Object result = new Object();
         private String responseText;
-        public ResponseBuilder(){}
 
-        public ResponseBuilder statusCode(int statusCode){
+        public ResponseBuilder() {
+        }
+
+        public ResponseBuilder statusCode(int statusCode) {
             this.statusCode = statusCode;
             return this;
         }
-        public ResponseBuilder message(MessageCommon message){
+
+        public ResponseBuilder message(MessageCommon message) {
             this.message = message;
             return this;
         }
-        public ResponseBuilder responseText(String responseText){
-            this.responseText =responseText;
+
+        public ResponseBuilder responseText(String responseText) {
+            this.responseText = responseText;
             return this;
         }
-        public ResponseBuilder result(Object result){
-            this.result =result;
+
+        public ResponseBuilder result(Object result) {
+            this.result = result;
             return this;
         }
 

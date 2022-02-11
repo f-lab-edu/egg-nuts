@@ -7,5 +7,4 @@ public class utils {
         BiPredicate<String, String> isEmpty = String::equals;
         return target == null || isEmpty.test(target, "");
     }
-
 }

@@ -1,61 +1,102 @@
 package me.usermanagement.domain.model.user;
 
 
-import me.usermanagement.common.Builder;
-
-import me.usermanagement.common.converter.GenderConverter;
-import me.usermanagement.common.converter.StatusConverter;
-import me.usermanagement.common.enums.Gender;
-import me.usermanagement.common.enums.Status;
+import me.usermanagement.common.response.errorClasses.UserException;
+import me.usermanagement.common.response.messages.error.ErrorMessage;
 import me.usermanagement.domain.model.CommonEntity;
 import lombok.*;
-import me.usermanagement.interfaces.user.facade.dto.UserDto;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
-
+import java.util.Arrays;
 
 
 @Getter
 @Entity
 @NoArgsConstructor
+@Table(
+        name = "user",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"user_id"})
+        }
+)
 public class User extends CommonEntity {
 
     @Id
-    private String USER_ID;
+    @GeneratedValue
+    private Long id;
+    @Column(name = "user_id")
+    private String userId;
+    @Column(name = "user_name")
+    private String userName;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+    @Enumerated(EnumType.STRING)
+    private UserStatus userStatus;
 
-    @NonNull
-    private String USER_NM;
+    @Getter
+    public enum Gender {
+        M("M", "남성"),
+        F("F", "여성"),
+        UNKNOWN("", "");
+        private final String code;
+        private final String desc;
 
-    @Convert(converter = GenderConverter.class)
-    private Gender GENDER;
+        Gender(String code, String desc) {
+            this.code = code;
+            this.desc = desc;
+        }
 
-    @Convert(converter = StatusConverter.class)
-    private Status USER_STATUS;
-
-    private User(UserBuilder userBuilder){
-        this.USER_ID = userBuilder.userId;
-        this.USER_NM = userBuilder.userName;
-        this.GENDER = userBuilder.gender;
-        this.USER_STATUS = userBuilder.userStatus;
+        public static Gender findEnumByCode(String code) {
+            return Arrays.stream(values())
+                    .filter(e -> e.code.equals(code))
+                    .findAny().orElse(UNKNOWN);
+        }
     }
 
-    public static class  UserBuilder implements Builder<User>{
-        private final String userId;
-        private final String userName;
-        private final Gender gender;
-        private final Status userStatus;
+    public enum UserStatus {
+        J("J", "가입"),
+        L("L", "탈퇴"),
+        D("D", "휴면계정"),
+        UNKNOWN("", "");
 
-        public UserBuilder(UserDto userDto){
-            this.userId= userDto.getUserId();
-            this.userName = userDto.getUserName();
-            this.gender =  Gender.findEnumByCode(userDto.getGender());
-            this.userStatus = Status.findEnumByCode(userDto.getUserStatus());
+        private final String code;
+        private final String desc;
+
+        UserStatus(String code, String desc) {
+            this.code = code;
+            this.desc = desc;
         }
 
-        @Override
-        public User builder() {
-            return new User(this);
+        public static UserStatus findEnumByCode(String code) {
+            return Arrays.stream(values())
+                    .filter(e -> e.code.equals(code))
+                    .findAny().orElse(UNKNOWN);
         }
+    }
 
+    @Builder
+    public User(String userId, String userName) {
+        if (StringUtils.isEmpty(userId)) throw new UserException(ErrorMessage.ID_EMPTY);
+        if (StringUtils.isEmpty(userName)) throw new UserException(ErrorMessage.NAME_EMPTY);
+        this.userId = userId;
+        this.userName = userName;
+        this.userStatus = UserStatus.J;
+    }
+
+    public void changeUserStatus(String statusCode) {
+        UserStatus userStatus = UserStatus.findEnumByCode(statusCode);
+        if (userStatus == UserStatus.UNKNOWN) {
+            throw new UserException(ErrorMessage.NO_STATUS);
+        }
+        this.userStatus = userStatus;
+    }
+
+    public void initUserGender(String statusCode) {
+        Gender gender = Gender.findEnumByCode(statusCode);
+        if (userStatus == UserStatus.UNKNOWN) {
+            throw new UserException(ErrorMessage.NO_GENDER);
+        }
+        this.gender = gender;
     }
 }

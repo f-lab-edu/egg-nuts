@@ -9,5 +9,7 @@ public enum ErrorMessage implements MessageCommon {
     UNKNOWN,
     UNKNOWN_USER,
     DUPLICATE_ID,
+    INVALID_PARAMETER,
+    NAME_EMPTY,
     ID_EMPTY;
 }

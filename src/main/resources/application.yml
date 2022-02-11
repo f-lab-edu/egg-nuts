@@ -10,18 +10,23 @@ spring:
     timeout-per-shutdown-phase: 30s
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: 1Q2w3e4r@@
-    url: jdbc:mysql://localhost:3306/jpa_practice?allowPublicKeyRetrieval=true&&useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
-    username: jpa_practice
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/flab?createDatabaseIfNotExist=true&&allowPublicKeyRetrieval=true&&useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     generate-ddl: true
     show-sql: true
-    properties:
-      hibernate:
-        ddl-auto: none
-        format_sql: true
+    hibernate:
+      ddl-auto: create
+      format_sql: true
+  flyway:
+    user: root
+    password: root
+    schemas: flab
+    url: jdbc:mysql://localhost:3306/flab?allowPublicKeyRetrieval=true&&useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    enabled: true
 
 
 
