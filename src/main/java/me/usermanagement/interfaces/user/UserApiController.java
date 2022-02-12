@@ -25,7 +25,7 @@ public class UserApiController {
     @PostMapping
     @ApiModelProperty(value = "회원가입")
     public ResponseEntity registerUser(@RequestBody @Valid UserDto.RegisterUser request) {
-        System.out.println(request);
+        System.out.println(request);   // TODO - logback 으로 바꾸기
         UserCommand userCommand = request.builder();
         UserInfo userInfo = userFacade.registerUser(userCommand);
         UserDto.Response response = new UserDto.Response(userInfo);
