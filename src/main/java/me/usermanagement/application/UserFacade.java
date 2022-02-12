@@ -12,17 +12,14 @@ public class UserFacade {
     private final UserService userService;
 
     public UserInfo registerUser(UserCommand userCommand) {
-        UserInfo userInfo = userService.registerUser(userCommand);
-        return userInfo;
+        return userService.registerUser(userCommand);
     }
 
-    public UserInfo modifyUserStatus(String userID,UserCommand userCommand) {
-        UserInfo userInfo = userService.modifyUserStatus(userID,userCommand);
-        return userInfo;
+    public UserInfo modifyUserStatus(String userId, UserCommand userCommand) {
+        return userService.modifyUserStatus(userId, userCommand);
     }
 
     public UserInfo userSearchById(String userId) {
-        UserInfo userInfo = userService.userSearchById(userId);
-        return userInfo;
+        return userService.userSearchById(userId);
     }
 }

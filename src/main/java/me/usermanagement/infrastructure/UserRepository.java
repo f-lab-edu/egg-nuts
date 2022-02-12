@@ -2,6 +2,7 @@ package me.usermanagement.infrastructure;
 
 import me.usermanagement.domain.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 

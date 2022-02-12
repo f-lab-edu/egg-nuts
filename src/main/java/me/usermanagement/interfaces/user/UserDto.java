@@ -26,7 +26,7 @@ public class UserDto {
         @NotBlank(message = "성별은 필수값입니다")
         private String gender;
 
-        public UserCommand builder() {
+        public UserCommand toCommand() {
             return UserCommand.builder()
                     .userId(userId)
                     .userName(userName)
@@ -46,7 +46,7 @@ public class UserDto {
         private String userStatus;
 
         @Override
-        public UserCommand builder() {
+        public UserCommand toCommand() {
             return UserCommand.builder()
                     .userId(userId)
                     .userStatus(userStatus)
@@ -69,8 +69,8 @@ public class UserDto {
             this.userName = userInfo.getUserName();
             this.gender = userInfo.getGender();
             this.userStatus = userInfo.getUserStatus();
-            this.createAt = userInfo.getCreateAt();
-            this.updateAt = userInfo.getUpdateAt();
+            this.createAt = userInfo.getCreateAt();  // TODO - 유저 친화적이지 않게 리턴될 것임. Formatter
+            this.updateAt = userInfo.getUpdateAt();  // TODO - 유저 친화적이지 않게 리턴될 것임. Formatter
         }
     }
 }

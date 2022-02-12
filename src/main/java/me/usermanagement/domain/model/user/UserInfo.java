@@ -11,7 +11,7 @@ public class UserInfo {
     private final String userName;
     private final User.Gender gender;
     private final User.UserStatus userStatus;
-    private final ZonedDateTime createAt;
+    private final ZonedDateTime createAt;   // TODO - LocalDateTime vs ZonedDateTime 차이 알아보기
     private final ZonedDateTime updateAt;
 
     public UserInfo(User user) {

@@ -5,7 +5,7 @@ services:
     container_name: flab-db
     restart: always
     ports:
-      - 3306:3306
+      - "3306:3306"
     environment:
       MYSQL_DATABASE: flab
       MYSQL_ROOT_PASSWORD: flab

@@ -21,6 +21,7 @@ spring:
     hibernate:
       ddl-auto: create
       format_sql: true
+    open-in-view: false  # TODO - open-in-view 의 의미가 무엇인지 확인하기. true 를 쓸지 false 를 쓸지 나름의 기준을 생각해보기
   flyway:
     user: root
     password: root

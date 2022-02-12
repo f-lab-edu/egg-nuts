@@ -39,6 +39,7 @@ public class User extends CommonEntity {
         M("M", "남성"),
         F("F", "여성"),
         UNKNOWN("", "");
+
         private final String code;
         private final String desc;
 
@@ -50,14 +51,16 @@ public class User extends CommonEntity {
         public static Gender findEnumByCode(String code) {
             return Arrays.stream(values())
                     .filter(e -> e.code.equals(code))
-                    .findAny().orElse(UNKNOWN);
+                    .findAny()
+                    .orElse(UNKNOWN);
         }
     }
 
+    @Getter
     public enum UserStatus {
-        J("J", "가입"),
-        L("L", "탈퇴"),
-        D("D", "휴면계정"),
+        JOIN("J", "가입"),
+        LEAVE("L", "탈퇴"),
+        DORMANCY("D", "휴면계정"),
         UNKNOWN("", "");
 
         private final String code;
@@ -76,12 +79,13 @@ public class User extends CommonEntity {
     }
 
     @Builder
-    public User(String userId, String userName) {
+    public User(String userId, String userName, Gender gender) {
         if (StringUtils.isEmpty(userId)) throw new UserException(ErrorMessage.ID_EMPTY);
         if (StringUtils.isEmpty(userName)) throw new UserException(ErrorMessage.NAME_EMPTY);
         this.userId = userId;
         this.userName = userName;
-        this.userStatus = UserStatus.J;
+        this.userStatus = UserStatus.JOIN;
+        this.gender = gender;
     }
 
     public void changeUserStatus(String statusCode) {

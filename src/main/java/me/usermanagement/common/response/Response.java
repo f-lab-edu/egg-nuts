@@ -52,7 +52,7 @@ public class Response implements Serializable {
         }
 
         @Override
-        public Response builder() {
+        public Response toCommand() {
             return new Response(this);
         }
     }

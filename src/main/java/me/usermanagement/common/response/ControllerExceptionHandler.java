@@ -21,7 +21,7 @@ public class ControllerExceptionHandler {
                 ResponseBuilder()
                 .statusCode(HttpStatus.METHOD_NOT_ALLOWED.value())
                 .responseText(e.getMessage())
-                .builder();
+                .toCommand();
         return new ResponseEntity<>(response, HttpStatus.METHOD_NOT_ALLOWED);
     }
 
@@ -33,7 +33,7 @@ public class ControllerExceptionHandler {
                 .statusCode(errorCodeDetailEnum.getStatusCode())
                 .message(errorCodeDetailEnum.getErrorMessage())
                 .responseText(errorCodeDetailEnum.getResponseText())
-                .builder();
+                .toCommand();
         return new ResponseEntity<>(response, HttpStatus.resolve(errorCodeDetailEnum.getStatusCode()));
     }
 
@@ -51,7 +51,7 @@ public class ControllerExceptionHandler {
                 ResponseBuilder()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .responseText(message)
-                .builder();
+                .toCommand();
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 }

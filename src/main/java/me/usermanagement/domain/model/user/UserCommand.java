@@ -17,6 +17,7 @@ public class UserCommand {
         return User.builder()
                 .userId(userId)
                 .userName(userName)
+                .gender(User.Gender.findEnumByCode(gender))
                 .build();
     }
 }
