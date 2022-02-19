@@ -21,7 +21,6 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @RequestMapping(value = "/api/users")
 public class UserApiController {
-
     private final UserFacade userFacade;
 
     @PostMapping
@@ -34,31 +33,29 @@ public class UserApiController {
         return responseMaker(NormalMessage.JOIN_OK, response);
     }
 
-
     @PatchMapping(value = "/{userId}")
     @ApiModelProperty(value = "사용자 상태 변경")
     public ResponseEntity modifyUserStatus(
             @PathVariable String userId,
-            @RequestBody @Valid UserDto.modifyUserStatus request
+            @RequestBody @Valid UserDto.ModifyUserStatus request
     ) {
-        // TODO - userId 와 request.getUserId 의 값이 다른 경우가 발생할 수 있다
         log.info("request = {}", request);
-        UserCommand userCommand = request.toCommand();
+        UserCommand userCommand = request.toCommand(userId);
         UserInfo userInfo = userFacade.modifyUserStatus(userId, userCommand);
         UserDto.Response response = new UserDto.Response(userInfo);
         return responseMaker(NormalMessage.STATUS_CHANGE_OK, response);
     }
 
-
     @ApiModelProperty(value = "사용자 조회")
-    @GetMapping(value = "/{user_id}")
-    public ResponseEntity userSearchById(@PathVariable @Valid String user_id) {
-        log.info("user_id = {}", user_id);
-        UserInfo userInfo = userFacade.userSearchById(user_id);
+    @GetMapping(value = "/{userId}")
+    public ResponseEntity userSearchById(@PathVariable @Valid String userId) {
+        log.info("userId = {}", userId);
+        UserInfo userInfo = userFacade.userSearchById(userId);
         UserDto.Response response = new UserDto.Response(userInfo);
         return responseMaker(NormalMessage.STATUS_CHANGE_OK, response);
     }
 
+    // TODO - 제거하고 Response 안에 static 메서드로 옮겨보기
     private ResponseEntity responseMaker(NormalMessage normalMessage, Object result) {
         NormalCodeDetailEnum normalCodeDetailEnum = NormalCodeDetailEnum.getResponse(normalMessage);
         Response response = new Response.

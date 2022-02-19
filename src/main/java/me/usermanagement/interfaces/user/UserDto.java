@@ -38,15 +38,11 @@ public class UserDto {
     @Getter
     @Setter
     @ToString
-    public static class modifyUserStatus implements Builder<UserCommand> {
-        @NotBlank(message = "아이디는 필수값입니다")
-        @Length(min = 4, message = "아이디는 최소 4자 이상이여야합니다")
-        private String userId;
+    public static class ModifyUserStatus {
         @NotBlank(message = "상태는 필수값입니다")
         private String userStatus;
 
-        @Override
-        public UserCommand toCommand() {
+        public UserCommand toCommand(String userId) {
             return UserCommand.builder()
                     .userId(userId)
                     .userStatus(userStatus)

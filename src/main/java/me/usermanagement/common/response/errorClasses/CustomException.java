@@ -5,7 +5,7 @@ import me.usermanagement.common.response.messages.error.ErrorMessage;
 
 public class CustomException extends RuntimeException {
     private static final long serialVersionUID = 1L;
-    private ErrorCodeDetailEnum errorCodeDetailEnum;
+    private final ErrorCodeDetailEnum errorCodeDetailEnum;
 
     public CustomException(ErrorMessage errorMessage) {
         super(ErrorCodeDetailEnum.getResponseText(errorMessage));

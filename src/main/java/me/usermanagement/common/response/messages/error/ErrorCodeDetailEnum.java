@@ -9,7 +9,6 @@ import java.util.Arrays;
 @AllArgsConstructor
 @Getter
 public enum ErrorCodeDetailEnum {
-
     NO_GENDER(400, ErrorMessage.NO_GENDER, "성별을 확인해주세요"),
     NO_STATUS(400, ErrorMessage.NO_STATUS, "회원 상태코드를 확인해주세요"),
     UNSUPPORTED_TYPE(400, ErrorMessage.UNSUPPORTED_TYPE, "지원하지 않는 타입 입니다"),
